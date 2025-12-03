@@ -16,6 +16,6 @@ async function bootstrap() {
   //Faz as requisições funcionarem
   app.enableCors();
 
-  await app.listen( 4000);
+  await app.listen(4000);
 }
 bootstrap();

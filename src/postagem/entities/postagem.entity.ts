@@ -16,5 +16,5 @@ export class Postagem {
     texto: string
 
     @UpdateDateColumn()
-    date: Date
+    data: Date
 }
