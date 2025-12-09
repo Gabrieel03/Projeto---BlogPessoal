@@ -3,6 +3,7 @@ import { ILike, Repository } from "typeorm";
 import { Postagem } from "../entities/postagem.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DeleteResult } from "typeorm/browser";
+import { TemaService } from "../../tema/service/tema.service";
 
 @Injectable() //Indica que a classe e de serviço e pode ser inserida e injetada em outras classes
 export class PostagemService {
@@ -10,7 +11,8 @@ export class PostagemService {
     //Iniciando Ferramentaas Para a Classe de Serviços
     constructor(
         @InjectRepository(Postagem) //PODE CHAMAR OS METODOS DE UMA CLASSE REPOSITORY
-        private postagemRepository: Repository<Postagem>
+        private postagemRepository: Repository<Postagem>,
+        private temaService: TemaService
     ) { }
 
     async findAll(): Promise<Postagem[]> {
@@ -33,7 +35,7 @@ export class PostagemService {
     async findByTitulo(titulo: string): Promise<Postagem[]> {
         return await this.postagemRepository.find({
             where: {
-                titulo: ILike(`${titulo}`)
+                titulo: ILike(`%${titulo}%`)
             }
         })
     }
@@ -43,13 +45,22 @@ export class PostagemService {
     }
 
     async update(postagem: Postagem): Promise<Postagem> {
-        await this.findById(postagem.id)
+         let buscaPostagem = await this.findById(postagem.id);
+
+        if (!buscaPostagem || !postagem.id){
+            throw new HttpException('Postagem não encontrada!', HttpStatus.NOT_FOUND);
+        }
         return await this.postagemRepository.save(postagem);
     }
 
     async delete(id: number): Promise<DeleteResult> {
-        await this.findById(id)
-        return await this.postagemRepository.delete(id)
+   
+        let buscaPostagem = await this.findById(id);
+
+        if (!buscaPostagem)
+            throw new HttpException('Postagem não encontrada!', HttpStatus.NOT_FOUND);
+
+        return await this.postagemRepository.delete(id);
     }
     
 }
