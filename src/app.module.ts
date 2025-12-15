@@ -4,6 +4,9 @@ import { Postagem } from './postagem/entities/postagem.entity';
 import { PostagemModule } from './postagem/postagem.module';
 import { Tema } from './tema/entities/tema.entity';
 import { TemaModule } from './tema/tema.module';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './Usuario/usuario.module';
+import { Usuario } from './Usuario/Entities/usuario.entity';
 
 //Decorator e uma etiqueta de Metadados
 //Arquivos modulos são o que conecta com a parte principal
@@ -16,11 +19,13 @@ import { TemaModule } from './tema/tema.module';
       username: 'root',
       password: 'GabGouIngriGab0307@',
       database: 'db_blogpessoal',
-      entities: [Postagem, Tema],
+      entities: [Postagem, Tema, Usuario],
       synchronize: true,
     }),
     PostagemModule,
-    TemaModule
+    TemaModule,
+    AuthModule,
+    UsuarioModule,
   ],
   controllers: [],
   providers: [],
