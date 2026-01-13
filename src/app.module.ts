@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Postagem } from './postagem/entities/postagem.entity';
-import { PostagemModule } from './postagem/postagem.module';
-import { Tema } from './tema/entities/tema.entity';
-import { TemaModule } from './tema/tema.module';
-import { AuthModule } from './auth/auth.module';
-import { UsuarioModule } from './Usuario/usuario.module';
-import { Usuario } from './Usuario/Entities/usuario.entity';
 import { ConfigModule } from '@nestjs/config';
-import { ProdService } from './data/services/prod.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
+import { ProdService } from './data/services/prod.service';
+import { PostagemModule } from './postagem/postagem.module';
+import { TemaModule } from './tema/tema.module';
+import { UsuarioModule } from './Usuario/usuario.module';
 
 //Decorator e uma etiqueta de Metadados
 //Arquivos modulos são o que conecta com a parte principal
@@ -25,7 +22,7 @@ import { AppController } from './app.controller';
     AuthModule,
     UsuarioModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [],
 })
 export class AppModule { }
