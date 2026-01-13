@@ -1,8 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { TemaService } from "../service/tema.service";
 import { Tema } from "../entities/tema.entity";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 
+@ApiTags("Tema") //Define o nome do grupo de endpoints no Swagger
+@UseGuards(JwtAuthGuard) //Protege todas as rotas com JWT
 @Controller("/temas") //Indica que a classe e uma classe de controller
+@ApiBearerAuth() //Adiciona o campo de autorizacao no Swagger
 export class TemaController {
     constructor(private readonly temaService: TemaService) { }
 
