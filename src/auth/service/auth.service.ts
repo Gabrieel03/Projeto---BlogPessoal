@@ -50,7 +50,7 @@ export class AuthService {
             usuario: usuarioLogin.usuario,
             senha: '',
             foto: buscaUsuario?.foto,
-            token: `Bearer ${this.jwtService.sign(payload)}`,   // Cria o Token JWT, criptografando alguns dados como o email do usuário que acabou de logar
+            token: this.jwtService.sign(payload),   // Cria o Token JWT, criptografando alguns dados como o email do usuário que acabou de logar
         }
 
     }
