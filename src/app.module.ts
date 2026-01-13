@@ -7,27 +7,25 @@ import { TemaModule } from './tema/tema.module';
 import { AuthModule } from './auth/auth.module';
 import { UsuarioModule } from './Usuario/usuario.module';
 import { Usuario } from './Usuario/Entities/usuario.entity';
+import { ConfigModule } from '@nestjs/config';
+import { ProdService } from './data/services/prod.service';
+import { AppController } from './app.controller';
 
 //Decorator e uma etiqueta de Metadados
 //Arquivos modulos são o que conecta com a parte principal
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'GabGouIngriGab0307@',
-      database: 'db_blogpessoal',
-      entities: [Postagem, Tema, Usuario],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      useClass: ProdService,
+      imports: [ConfigModule],
     }),
     PostagemModule,
     TemaModule,
     AuthModule,
     UsuarioModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule { }
