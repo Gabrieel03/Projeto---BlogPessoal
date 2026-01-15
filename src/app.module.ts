@@ -23,7 +23,7 @@ import { DevService } from './data/services/dev.service';
     AuthModule,
     UsuarioModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule { }
