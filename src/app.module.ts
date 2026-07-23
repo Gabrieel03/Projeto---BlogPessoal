@@ -8,6 +8,7 @@ import { PostagemModule } from './postagem/postagem.module';
 import { TemaModule } from './tema/tema.module';
 import { UsuarioModule } from './Usuario/usuario.module';
 import { DevService } from './data/services/dev.service';
+import process from 'process';
 
 //Decorator e uma etiqueta de Metadados
 //Arquivos modulos são o que conecta com a parte principal
@@ -15,7 +16,7 @@ import { DevService } from './data/services/dev.service';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
-      useClass: ProdService,
+      useClass: process.env.NODE_ENV === 'production' ? ProdService : DevService,
       imports: [ConfigModule],
     }),
     PostagemModule,
